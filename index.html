@@ -522,6 +522,8 @@
         .video-wrap {
             position: relative;
             width: 100%;
+            aspect-ratio: 9 / 16;
+            max-height: 520px;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 16px 50px rgba(26, 43, 40, 0.1);
@@ -530,7 +532,7 @@
 
         .about-image video {
             width: 100%;
-            max-height: 520px;
+            height: 100%;
             display: block;
             object-fit: cover;
             object-position: center top;
@@ -1939,7 +1941,7 @@
             <div class="about-grid fade-in">
                 <div class="about-image">
                     <div class="video-wrap">
-                        <video id="mattVideo" src="matt-vid.MOV" playsinline preload="metadata"></video>
+                        <video id="mattVideo" src="matt-vid.mp4" playsinline preload="metadata"></video>
                         <div class="video-overlay" id="videoOverlay">
                             <div class="video-play-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -2403,21 +2405,21 @@
         // Scroll-triggered video with play button (guarantees audio by requiring user click)
         const mattVideo = document.getElementById('mattVideo');
         const videoOverlay = document.getElementById('videoOverlay');
+        const videoWrap = videoOverlay ? videoOverlay.closest('.video-wrap') : null;
         let overlayShown = false;
 
         const videoObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !overlayShown) {
                     overlayShown = true;
-                    // 2 second delay after scrolling into view before showing the play button
                     setTimeout(() => {
                         videoOverlay.classList.add('ready');
                     }, 2000);
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.2 });
 
-        if (mattVideo) videoObserver.observe(mattVideo);
+        if (videoWrap) videoObserver.observe(videoWrap);
 
         if (videoOverlay) {
             videoOverlay.addEventListener('click', () => {
