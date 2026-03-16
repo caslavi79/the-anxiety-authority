@@ -1457,20 +1457,27 @@
             }
 
             .hero {
-                padding: calc(var(--nav-height) + 24px) 20px 48px;
+                padding: calc(var(--nav-height) + 32px) 20px 80px;
                 min-height: auto;
+            }
+
+            .hero-inner {
+                gap: 32px;
             }
 
             .hero h1 {
                 font-size: 2.2rem;
+                margin-bottom: 16px;
             }
 
             .hero-subtitle {
                 font-size: 1.05rem;
+                margin-bottom: 20px;
             }
 
             .hero-text {
                 font-size: 0.95rem;
+                margin-bottom: 32px;
             }
 
             .hero-photo {
@@ -1482,18 +1489,20 @@
             .hero-photo-frame {
                 display: block;
                 margin: 0 auto;
-                max-width: 220px;
+                max-width: 280px;
                 width: 100%;
             }
 
             .hero-photo img {
-                max-width: 220px;
+                max-width: 280px;
                 margin: 0 auto;
                 display: block;
             }
 
             .hero-credentials {
-                gap: 16px;
+                gap: 20px;
+                margin-top: 24px;
+                padding-top: 24px;
             }
 
             .credential-number {
@@ -1503,6 +1512,14 @@
             .hero-actions {
                 flex-direction: column;
                 align-items: stretch;
+            }
+
+            .hero-content {
+                margin-top: 16px;
+            }
+
+            .hero-label {
+                margin-bottom: 48px;
             }
 
             .btn-primary, .btn-secondary {
@@ -2210,4 +2227,12 @@
         }
         initAccordions();
         window.addEventListener('resize', () => {
-            // Re-show bodies on desktop if they were collapsed
+            if (window.innerWidth > 640) {
+                document.querySelectorAll('.specialty-card-body, .approach-card-body').forEach(el => {
+                    el.style.display = '';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
