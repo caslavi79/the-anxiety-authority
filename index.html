@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>The Anxiety Authority — Matt Mueller, LPC | Austin, TX</title>
     <meta name="description" content="Matt Mueller is a Licensed Professional Counselor in Austin, TX specializing in anxiety, OCD, panic, ADHD, and trauma. Evidence-based therapy that goes beyond coping to real recovery.">
     <meta property="og:title" content="The Anxiety Authority — Matt Mueller, LPC">
@@ -1660,19 +1660,21 @@
         /* ===== MOBILE EXTRAS ===== */
         @media (max-width: 640px) {
 
-            /* Tappable contact method rows */
+            /* Clean contact methods — no card chrome */
             .contact-method {
-                padding: 14px 16px;
-                background: var(--cream);
-                border: 1px solid var(--sage-light);
-                border-radius: 12px;
-                margin-bottom: 12px;
-                align-items: center;
+                background: none;
+                border: none;
+                border-radius: 0;
+                padding: 0;
+                margin-bottom: 20px;
+                align-items: flex-start;
             }
 
             .contact-method-value a {
                 font-size: 1rem;
                 font-weight: 500;
+                text-decoration: underline;
+                text-underline-offset: 3px;
             }
 
             /* Specialty accordion */
@@ -1708,6 +1710,111 @@
             .approach-card-header h3 { margin-bottom: 0; }
             .approach-card-chevron { color: rgba(255,255,255,0.6); flex-shrink: 0; transition: transform 0.3s ease; }
             .approach-card.open .approach-card-chevron { transform: rotate(180deg); }
+        }
+
+        /* ================================================
+           MOBILE UX PATCH — surgical fixes, mobile only
+           All rules scoped to max-width breakpoints.
+           Zero desktop impact.
+           ================================================ */
+
+        /* Fix: hero-label had margin-bottom:48px at 640px — bug that
+           creates a dead gap between the eyebrow label and the H1.
+           Correct value matches the intentional hierarchy (label → H1). */
+        @media (max-width: 640px) {
+            .hero-label {
+                margin-bottom: 12px;
+            }
+
+            /* Prevent iOS auto-zoom on input focus.
+               Any font-size < 16px triggers viewport zoom — kills form UX. */
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                font-size: 16px;
+            }
+
+            /* Hamburger tap target: was ~40×40px (8px padding on 24px icon).
+               Apple HIG minimum is 44×44px. Flex centers the spans precisely. */
+            .nav-toggle {
+                padding: 10px 12px;
+                min-width: 44px;
+                min-height: 44px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Mobile nav link tap height: 12px padding → 14px.
+               Line-height ~16px + 28px padding = 44px. Hits HIG target. */
+            .nav-links a {
+                padding: 14px 0;
+            }
+
+            /* Hero photo: 280px cap leaves ~110px empty on a 390px iPhone.
+               320px fills better without overflow on 360px devices. */
+            .hero-photo-frame,
+            .hero-photo img {
+                max-width: 320px;
+            }
+
+            /* Hero bottom padding: 80px was nearly a second viewport on short
+               phones. 56px maintains breathing room without dead scroll space. */
+            .hero {
+                padding-bottom: 56px;
+            }
+
+            /* psych-today-card: max-width:420px orphans it on narrow phones.
+               Full-width keeps it flush and consistent with sibling elements. */
+            .psych-today-card {
+                max-width: 100%;
+            }
+
+            /* CTA phone link: inline text with no padding is a ~18px tap target.
+               Adding block padding brings it to a thumb-friendly 30px+. */
+            .cta-phone a {
+                display: inline-block;
+                padding: 6px 4px;
+            }
+
+            /* Safe-area insets: content was clipping into the notch / Dynamic
+               Island on supported devices. Requires viewport-fit=cover (added
+               to <meta viewport>). Fallback 0px = zero effect on flat devices. */
+            .nav-inner {
+                padding-left:  calc(16px + env(safe-area-inset-left, 0px));
+                padding-right: calc(16px + env(safe-area-inset-right, 0px));
+            }
+
+            .hero {
+                padding-left:  calc(20px + env(safe-area-inset-left, 0px));
+                padding-right: calc(20px + env(safe-area-inset-right, 0px));
+            }
+
+            .section {
+                padding-left:  calc(20px + env(safe-area-inset-left, 0px));
+                padding-right: calc(20px + env(safe-area-inset-right, 0px));
+            }
+
+            .cta-banner {
+                padding-left:  calc(20px + env(safe-area-inset-left, 0px));
+                padding-right: calc(20px + env(safe-area-inset-right, 0px));
+            }
+
+            .footer {
+                padding-left:   calc(20px + env(safe-area-inset-left, 0px));
+                padding-right:  calc(20px + env(safe-area-inset-right, 0px));
+                padding-bottom: calc(36px + env(safe-area-inset-bottom, 0px));
+            }
+        }
+
+        /* Endorsements grid: collapses to 1-col with max-width:560px but
+           had no margin:auto — left-aligned on tablets and phones. */
+        @media (max-width: 968px) {
+            .endorsements-grid {
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
     </style>
 </head>
@@ -2040,7 +2147,7 @@
                         <div class="contact-method-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
                         <div class="contact-method-text">
                             <div class="contact-method-label">Email</div>
-                            <div class="contact-method-value"><a href="/cdn-cgi/l/email-protection#fc919d8888bc8894999d9284959988859d898894938e958885d29f9391"><span class="__cf_email__" data-cfemail="1e737f6a6a5e6a767b7f7066777b6a677f6b6a76716c776a67307d7173">[email&#160;protected]</span></a></div>
+                            <div class="contact-method-value"><a href="mailto:matt@theanxietyauthority.com">matt@theanxietyauthority.com</a></div>
                         </div>
                     </div>
                     <div class="contact-method">
@@ -2122,7 +2229,7 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Nav scroll effect
         const nav = document.getElementById('nav');
         window.addEventListener('scroll', () => {
