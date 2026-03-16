@@ -331,24 +331,22 @@
         }
 
         .hero-photo img {
-            /* sizing handled by .hero-photo-frame img */
+            /* sizing handled by .hero-photo-frame */
         }
 
         .hero-photo-frame {
-            display: block;
             width: 100%;
             max-width: 420px;
             margin: 0 auto;
-            padding: 12px 0 0 12px;
-            background: transparent;
+            display: block;
         }
 
         .hero-photo-frame img {
-            display: block;
             width: 100%;
             border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(26, 43, 40, 0.12);
-            border: 2px solid var(--sage-light);
+            display: block;
+            box-shadow: 0 20px 60px rgba(26, 43, 40, 0.12),
+                        -10px -10px 0 2px var(--sage-light);
         }
 
         .hero-credentials {
@@ -463,6 +461,17 @@
             position: relative;
         }
 
+        .about-image img,
+        .about-image video {
+            width: 100%;
+            max-height: 520px;
+            border-radius: 12px;
+            box-shadow: 0 16px 50px rgba(26, 43, 40, 0.1);
+            display: block;
+            object-fit: cover;
+            object-position: center top;
+        }
+
         .video-placeholder {
             width: 100%;
             aspect-ratio: 9 / 16;
@@ -479,17 +488,6 @@
             color: #888;
             letter-spacing: 0.05em;
             text-transform: uppercase;
-        }
-
-        .about-image img,
-        .about-image video {
-            width: 100%;
-            max-height: 520px;
-            border-radius: 12px;
-            box-shadow: 0 16px 50px rgba(26, 43, 40, 0.1);
-            display: block;
-            object-fit: cover;
-            object-position: center top;
         }
 
         .about-quote {
@@ -1500,6 +1498,65 @@
                 padding: 6px 10px;
             }
         }
+
+        /* ===== MOBILE EXTRAS ===== */
+        @media (max-width: 640px) {
+
+            /* Center headshot */
+            .hero-photo-frame {
+                max-width: 260px;
+                margin: 0 auto;
+            }
+
+            /* Tappable contact method rows */
+            .contact-method {
+                padding: 14px 16px;
+                background: var(--cream);
+                border: 1px solid var(--sage-light);
+                border-radius: 12px;
+                margin-bottom: 12px;
+                align-items: center;
+            }
+
+            .contact-method-value a {
+                font-size: 1rem;
+                font-weight: 500;
+            }
+
+            /* Specialty accordion */
+            .specialty-card { cursor: pointer; }
+            .specialty-card .specialty-card-body { display: none; margin-top: 12px; }
+            .specialty-card.open .specialty-card-body { display: block; }
+            .specialty-card-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+            }
+            .specialty-card-header-left {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+            }
+            .specialty-card-header h3 { margin-bottom: 0; }
+            .specialty-icon { margin-bottom: 0; }
+            .specialty-card-chevron { color: var(--teal); flex-shrink: 0; transition: transform 0.3s ease; }
+            .specialty-card.open .specialty-card-chevron { transform: rotate(180deg); }
+
+            /* Approach accordion */
+            .approach-card { cursor: pointer; }
+            .approach-card .approach-card-body { display: none; margin-top: 10px; }
+            .approach-card.open .approach-card-body { display: block; }
+            .approach-card-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+            }
+            .approach-card-header h3 { margin-bottom: 0; }
+            .approach-card-chevron { color: rgba(255,255,255,0.6); flex-shrink: 0; transition: transform 0.3s ease; }
+            .approach-card.open .approach-card-chevron { transform: rotate(180deg); }
+        }
     </style>
 </head>
 <body>
@@ -1539,9 +1596,7 @@
                 </div>
             </div>
             <div class="hero-photo">
-                <div class="hero-photo-frame">
-                    <img src="headshot.png" alt="Matt Mueller, Licensed Professional Counselor" width="420">
-                </div>
+                <div class="hero-photo-frame"><img src="headshot.png" alt="Matt Mueller, Licensed Professional Counselor"></div>
                 <div class="hero-credentials">
                     <div class="credential">
                         <div class="credential-number credential-number--numeric">11+</div>
@@ -1596,35 +1651,66 @@
             <p class="section-subtitle">I focus on the conditions I know best — and treat them with proven, evidence-based methods that go beyond surface-level coping.</p>
             <div class="specialties-grid">
                 <div class="specialty-card fade-in">
-                    <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M12 18v-5.5a.5.5 0 0 0-1 0v.5a.5.5 0 0 1-1 0 3.5 3.5 0 0 1 2-3.1"/></svg></div>
-                    <h3>Anxiety &amp; Panic</h3>
-                    <p>Persistent worry, "what if" spirals, panic attacks, physical tension, avoidance behaviors — when anxiety becomes your default operating mode, we work to rewire the response at its root.</p>
+                    <div class="specialty-card-header">
+                        <div class="specialty-card-header-left">
+                            <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M12 18v-5.5a.5.5 0 0 0-1 0v.5a.5.5 0 0 1-1 0 3.5 3.5 0 0 1 2-3.1"/></svg></div>
+                            <h3>Anxiety &amp; Panic</h3>
+                        </div>
+                        <svg class="specialty-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="specialty-card-body"><p>Persistent worry, &ldquo;what if&rdquo; spirals, panic attacks, physical tension, avoidance behaviors &mdash; when anxiety becomes your default operating mode, we work to rewire the response at its root.</p></div>
                 </div>
                 <div class="specialty-card fade-in">
-                    <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></div>
-                    <h3>OCD</h3>
-                    <p>Intrusive thoughts, compulsive rituals, mental loops that won't quit. I use Exposure and Response Prevention (ERP) — the gold standard for OCD — to help you break the cycle for good.</p>
+                    <div class="specialty-card-header">
+                        <div class="specialty-card-header-left">
+                            <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></div>
+                            <h3>OCD</h3>
+                        </div>
+                        <svg class="specialty-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="specialty-card-body"><p>Intrusive thoughts, compulsive rituals, mental loops that won&rsquo;t quit. I use Exposure and Response Prevention (ERP) &mdash; the gold standard for OCD &mdash; to help you break the cycle for good.</p></div>
                 </div>
                 <div class="specialty-card fade-in">
-                    <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
-                    <h3>Trauma &amp; PTSD</h3>
-                    <p>Whether it's a single event or years of accumulated stress, trauma reshapes how you see the world. We work together to process what happened and reclaim your sense of safety.</p>
+                    <div class="specialty-card-header">
+                        <div class="specialty-card-header-left">
+                            <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
+                            <h3>Trauma &amp; PTSD</h3>
+                        </div>
+                        <svg class="specialty-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="specialty-card-body"><p>Whether it&rsquo;s a single event or years of accumulated stress, trauma reshapes how you see the world. We work together to process what happened and reclaim your sense of safety.</p></div>
                 </div>
                 <div class="specialty-card fade-in">
-                    <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></div>
-                    <h3>ADHD</h3>
-                    <p>Focus issues, impulsivity, emotional dysregulation — ADHD often shows up alongside anxiety. I help you build structure and strategies that work with your brain, not against it.</p>
+                    <div class="specialty-card-header">
+                        <div class="specialty-card-header-left">
+                            <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></div>
+                            <h3>ADHD</h3>
+                        </div>
+                        <svg class="specialty-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="specialty-card-body"><p>Focus issues, impulsivity, emotional dysregulation &mdash; ADHD often shows up alongside anxiety. I help you build structure and strategies that work with your brain, not against it.</p></div>
                 </div>
                 <div class="specialty-card fade-in">
-                    <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M16 14v6"/><path d="M8 14v6"/><path d="M12 16v6"/></svg></div>
-                    <h3>Depression</h3>
-                    <p>Low motivation, persistent sadness, feeling disconnected from the things that used to matter. We identify what's keeping you stuck and build a path back to engagement and meaning.</p>
+                    <div class="specialty-card-header">
+                        <div class="specialty-card-header-left">
+                            <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M16 14v6"/><path d="M8 14v6"/><path d="M12 16v6"/></svg></div>
+                            <h3>Depression</h3>
+                        </div>
+                        <svg class="specialty-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="specialty-card-body"><p>Low motivation, persistent sadness, feeling disconnected from the things that used to matter. We identify what&rsquo;s keeping you stuck and build a path back to engagement and meaning.</p></div>
                 </div>
                 <div class="specialty-card fade-in">
-                    <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
-                    <h3>Stress &amp; Life Transitions</h3>
-                    <p>Career shifts, relationship changes, major life decisions — sometimes you don't need a diagnosis, you need a skilled thinking partner to help you navigate what's next.</p>
+                    <div class="specialty-card-header">
+                        <div class="specialty-card-header-left">
+                            <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
+                            <h3>Stress &amp; Life Transitions</h3>
+                        </div>
+                        <svg class="specialty-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="specialty-card-body"><p>Career shifts, relationship changes, major life decisions &mdash; sometimes you don&rsquo;t need a diagnosis, you need a skilled thinking partner to help you navigate what&rsquo;s next.</p></div>
                 </div>
+            
             </div>
         </div>
     </section>
@@ -1637,25 +1723,34 @@
             <p class="section-subtitle">I draw from multiple proven modalities, tailored to what your specific situation needs — not a generic treatment plan.</p>
             <div class="approach-grid">
                 <div class="approach-card fade-in">
-                    <h3>Cognitive Behavioral Therapy</h3>
-                    <span class="abbr">CBT</span>
-                    <p>Identify and reshape the thinking patterns and behaviors that keep anxiety alive. Practical, structured, and backed by decades of research.</p>
+                    <div class="approach-card-header">
+                        <div><h3>Cognitive Behavioral Therapy</h3><span class="abbr">CBT</span></div>
+                        <svg class="approach-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="approach-card-body"><p>Identify and reshape the thinking patterns and behaviors that keep anxiety alive. Practical, structured, and backed by decades of research.</p></div>
                 </div>
                 <div class="approach-card fade-in">
-                    <h3>Exposure &amp; Response Prevention</h3>
-                    <span class="abbr">ERP</span>
-                    <p>The gold standard for OCD treatment. We systematically face what triggers you — in a safe, controlled way — so your brain learns the feared outcome doesn't happen.</p>
+                    <div class="approach-card-header">
+                        <div><h3>Exposure &amp; Response Prevention</h3><span class="abbr">ERP</span></div>
+                        <svg class="approach-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="approach-card-body"><p>The gold standard for OCD treatment. We systematically face what triggers you &mdash; in a safe, controlled way &mdash; so your brain learns the feared outcome doesn&rsquo;t happen.</p></div>
                 </div>
                 <div class="approach-card fade-in">
-                    <h3>Acceptance &amp; Commitment Therapy</h3>
-                    <span class="abbr">ACT</span>
-                    <p>Learn to accept difficult thoughts without letting them control you. Build psychological flexibility and reconnect with what actually matters to you.</p>
+                    <div class="approach-card-header">
+                        <div><h3>Acceptance &amp; Commitment Therapy</h3><span class="abbr">ACT</span></div>
+                        <svg class="approach-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="approach-card-body"><p>Learn to accept difficult thoughts without letting them control you. Build psychological flexibility and reconnect with what actually matters to you.</p></div>
                 </div>
                 <div class="approach-card fade-in">
-                    <h3>Mindfulness &amp; Somatic Work</h3>
-                    <span class="abbr">MBCT + SOMATIC</span>
-                    <p>Calm the nervous system, build body awareness, and develop the ability to be present without being overwhelmed. The body keeps the score — we address it.</p>
+                    <div class="approach-card-header">
+                        <div><h3>Mindfulness &amp; Somatic Work</h3><span class="abbr">MBCT + SOMATIC</span></div>
+                        <svg class="approach-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="approach-card-body"><p>Calm the nervous system, build body awareness, and develop the ability to be present without being overwhelmed. The body keeps the score &mdash; we address it.</p></div>
                 </div>
+            
             </div>
             <div class="approach-difference fade-in">
                 <h3>What makes this different?</h3>
@@ -1875,12 +1970,9 @@
             observer.observe(el);
         });
 
-        // Fallback: if anything is still hidden after 1s, force it visible
         setTimeout(() => {
-            document.querySelectorAll('.fade-in:not(.visible)').forEach(el => {
-                el.classList.add('visible');
-            });
-        }, 1000);
+            document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible'));
+        }, 800);
 
         // Active nav link on scroll
         const sections = document.querySelectorAll('section[id]');
@@ -1902,7 +1994,7 @@
             });
         });
 
-        // Contact form handler — opens default mail client with pre-filled message
+        // Contact form — opens mail client with pre-filled message
         function handleFormSubmit() {
             const firstName = document.getElementById('firstName').value.trim();
             const lastName  = document.getElementById('lastName').value.trim();
@@ -1927,4 +2019,33 @@
                 'Email: ' + email + '\n' +
                 (phone ? 'Phone: ' + phone + '\n' : '') +
                 (interest ? 'Area of focus: ' + (interestLabels[interest] || interest) + '\n' : '') +
-                (message ? '\nMessage:\n' + messa
+                (message ? '\nMessage:\n' + message : '')
+            );
+
+            window.location.href = 'mailto:matt@theanxietyauthority.com?subject=' + subject + '&body=' + body;
+        }
+
+        // Accordion for specialty + approach cards (mobile only)
+        function initAccordions() {
+            if (window.innerWidth > 640) return;
+            document.querySelectorAll('.specialty-card').forEach(card => {
+                card.addEventListener('click', () => card.classList.toggle('open'));
+            });
+            document.querySelectorAll('.approach-card').forEach(card => {
+                card.addEventListener('click', () => card.classList.toggle('open'));
+            });
+        }
+        initAccordions();
+        window.addEventListener('resize', () => {
+            // Re-show bodies on desktop if they were collapsed
+            if (window.innerWidth > 640) {
+                document.querySelectorAll('.specialty-card-body, .approach-card-body').forEach(el => {
+                    el.style.display = '';
+                });
+            }
+        });
+
+    </script>
+
+</body>
+</html>
