@@ -519,14 +519,71 @@
         }
 
         .about-image img,
+        .video-wrap {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 16px 50px rgba(26, 43, 40, 0.1);
+            background: #1A2B28;
+        }
+
         .about-image video {
             width: 100%;
             max-height: 520px;
-            border-radius: 12px;
-            box-shadow: 0 16px 50px rgba(26, 43, 40, 0.1);
             display: block;
             object-fit: cover;
             object-position: center top;
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            background: rgba(26, 43, 40, 0.45);
+            backdrop-filter: blur(2px);
+            cursor: pointer;
+            transition: opacity 0.6s ease;
+            opacity: 0;
+        }
+
+        .video-overlay.ready {
+            opacity: 1;
+        }
+
+        .video-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .video-play-btn {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .video-overlay:hover .video-play-btn {
+            background: rgba(255,255,255,0.28);
+            transform: scale(1.08);
+        }
+
+        .video-play-label {
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
         .video-placeholder {
@@ -1881,8 +1938,14 @@
             <div class="section-title">A therapist who's been there.</div>
             <div class="about-grid fade-in">
                 <div class="about-image">
-                    <div class="video-placeholder">
-                        <span>Video coming soon</span>
+                    <div class="video-wrap">
+                        <video id="mattVideo" src="matt-vid.mov" playsinline preload="metadata"></video>
+                        <div class="video-overlay" id="videoOverlay">
+                            <div class="video-play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <span class="video-play-label">Watch my story</span>
+                        </div>
                     </div>
                     <div class="about-quote">"You're not broken and you're not alone."</div>
                 </div>
@@ -2147,7 +2210,7 @@
                         <div class="contact-method-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
                         <div class="contact-method-text">
                             <div class="contact-method-label">Email</div>
-                            <div class="contact-method-value"><a href="mailto:matt@theanxietyauthority.com">matt@theanxietyauthority.com</a></div>
+                            <div class="contact-method-value"><a href="/cdn-cgi/l/email-protection#107d71646450647875717e6879756469716564787f627964693e737f7d"><span class="__cf_email__" data-cfemail="aac7cbdedeeadec2cfcbc4d2c3cfded3cbdfdec2c5d8c3ded384c9c5c7">[email&#160;protected]</span></a></div>
                         </div>
                     </div>
                     <div class="contact-method">
@@ -2229,7 +2292,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Nav scroll effect
         const nav = document.getElementById('nav');
         window.addEventListener('scroll', () => {
@@ -2334,12 +2397,35 @@
         }
         initAccordions();
         window.addEventListener('resize', () => {
-            if (window.innerWidth > 640) {
-                document.querySelectorAll('.specialty-card-body, .approach-card-body').forEach(el => {
-                    el.style.display = '';
-                });
-            }
+               initAccordions();
         });
+
+        // Scroll-triggered video with play button (guarantees audio by requiring user click)
+        const mattVideo = document.getElementById('mattVideo');
+        const videoOverlay = document.getElementById('videoOverlay');
+        let overlayShown = false;
+
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !overlayShown) {
+                    overlayShown = true;
+                    // 2 second delay after scrolling into view before showing the play button
+                    setTimeout(() => {
+                        videoOverlay.classList.add('ready');
+                    }, 2000);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (mattVideo) videoObserver.observe(mattVideo);
+
+        if (videoOverlay) {
+            videoOverlay.addEventListener('click', () => {
+                videoOverlay.classList.add('hidden');
+                mattVideo.muted = false;
+                mattVideo.play();
+            });
+        }
     </script>
 </body>
 </html>
