@@ -94,9 +94,7 @@
             letter-spacing: -0.01em;
         }
 
-        .nav-brand span {
-            color: var(--gold);
-        }
+        #nb-A2, #nb-ut { color: var(--gold); }
 
         .nav-links {
             display: flex;
@@ -1884,7 +1882,7 @@
     <!-- NAV -->
     <nav class="nav" id="nav">
         <div class="nav-inner">
-            <a href="#" class="nav-brand">The Anxiety <span>Authority</span></a>
+            <a href="#" class="nav-brand" id="navBrand" style="opacity:0"><span id="nb-T">T</span><span id="nb-he">he </span><span id="nb-A1">A</span><span id="nb-nx">nxiety </span><span id="nb-A2">A</span><span id="nb-ut">uthority</span></a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
                 <li><a href="#specialties">Specialties</a></li>
@@ -2214,7 +2212,7 @@
                         <div class="contact-method-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
                         <div class="contact-method-text">
                             <div class="contact-method-label">Email</div>
-                            <div class="contact-method-value"><a href="/cdn-cgi/l/email-protection#107d71646450647875717e6879756469716564787f627964693e737f7d"><span class="__cf_email__" data-cfemail="aac7cbdedeeadec2cfcbc4d2c3cfded3cbdfdec2c5d8c3ded384c9c5c7">[email&#160;protected]</span></a></div>
+                            <div class="contact-method-value"><a href="mailto:matt@theanxietyauthority.com">matt@theanxietyauthority.com</a></div>
                         </div>
                     </div>
                     <div class="contact-method">
@@ -2295,6 +2293,150 @@
             </ul>
         </div>
     </footer>
+
+    <!-- TAA INTRO OVERLAY -->
+    <div id="taaOverlay" style="position:fixed;inset:0;z-index:9998;background:#F7F3ED;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+      <div id="taaScene" style="position:relative;width:min(640px,90vw);height:320px;overflow:visible;user-select:none;-webkit-user-select:none;">
+        <span id="tT" style="position:absolute;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1;white-space:nowrap;pointer-events:none;">T</span>
+        <span id="tA1" style="position:absolute;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1;white-space:nowrap;pointer-events:none;">A</span>
+        <span id="tA2" style="position:absolute;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1;white-space:nowrap;pointer-events:none;">A</span>
+        <span id="tHe" style="position:absolute;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1;white-space:nowrap;pointer-events:none;opacity:0;">he </span>
+        <span id="tNx" style="position:absolute;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1;white-space:nowrap;pointer-events:none;opacity:0;">nxiety </span>
+        <span id="tUt" style="position:absolute;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1;white-space:nowrap;pointer-events:none;opacity:0;">uthority</span>
+      </div>
+    </div>
+
+    <script>
+    (function () {
+      const TC = '#1E4D45', GC = '#C49A3C';
+      const FW = '600';
+      const SVG_W = 680, SVG_FS = 160, CAP = 0.72;
+      const SE = 54, SH = 320;
+      let introPhase = 'idle';
+
+      function mw(txt, sz) {
+        const s = document.getElementById('taaScene');
+        const d = document.createElement('div');
+        d.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;top:-9999px;left:0;';
+        const sp = document.createElement('span');
+        sp.style.cssText = `font-family:'Cormorant Garamond',Georgia,serif;font-weight:${FW};font-size:${sz}px;line-height:1;white-space:nowrap;`;
+        sp.textContent = txt;
+        d.appendChild(sp); s.appendChild(d);
+        const w = sp.getBoundingClientRect().width;
+        s.removeChild(d);
+        return w;
+      }
+
+      function ts(id, p) {
+        const el = document.getElementById(id);
+        if (el) Object.assign(el.style, p);
+      }
+
+      function clearTrans() {
+        ['tT','tA1','tA2','tHe','tNx','tUt'].forEach(id => ts(id, { transition: 'none' }));
+      }
+
+      const MOVER = 'left 0.65s cubic-bezier(0.4,0,0.2,1), top 0.65s cubic-bezier(0.4,0,0.2,1), font-size 0.65s cubic-bezier(0.4,0,0.2,1)';
+
+      function monogram(instant) {
+        if (instant) clearTrans();
+        const scene = document.getElementById('taaScene');
+        const sw = scene.getBoundingClientRect().width;
+        const fs = Math.min(SVG_FS * (sw / SVG_W), SVG_FS * 1.1);
+        const tW = mw('T', fs), a2W = mw('A', fs);
+        const cap = fs * CAP;
+        const ovlp = tW * 0.38;
+        const pairW = tW * 2 - ovlp;
+        const pairL = (sw - pairW) / 2;
+        const topY = (SH - cap * 1.55) / 2;
+        const botY = topY + cap * 0.62;
+        ts('tT',  { left: pairL+'px',           top: topY+'px', fontSize: fs+'px', color: TC, zIndex:'3', opacity:'1', filter:'drop-shadow(2px 3px 3px rgba(10,36,32,0.45))' });
+        ts('tA1', { left: (pairL+tW-ovlp)+'px', top: topY+'px', fontSize: fs+'px', color: TC, zIndex:'1', opacity:'1', filter:'drop-shadow(2px 3px 4px rgba(10,36,32,0.28))' });
+        ts('tA2', { left: ((sw-a2W)/2)+'px',     top: botY+'px', fontSize: fs+'px', color: GC, zIndex:'2', opacity:'1', filter:'drop-shadow(0px -2px 4px rgba(107,74,8,0.5))' });
+        ['tHe','tNx','tUt'].forEach(id => ts(id, { opacity:'0', transition:'none' }));
+      }
+
+      function expand() {
+        const scene = document.getElementById('taaScene');
+        const sw = scene.getBoundingClientRect().width;
+        const tW=mw('T',SE), heW=mw('he ',SE), a1W=mw('A',SE),
+              nxW=mw('nxiety ',SE), a2W=mw('A',SE), utW=mw('uthority',SE);
+        const lw = tW+heW+a1W+nxW+a2W+utW;
+        const sx = (sw - lw) / 2;
+        const y  = (SH - SE) / 2;
+        ['tT','tA1','tA2'].forEach(id => ts(id, { transition: MOVER }));
+        ts('tT',  { left: sx+'px',                 top: y+'px', fontSize: SE+'px', zIndex:'3', filter:'none' });
+        ts('tA1', { left: (sx+tW+heW)+'px',         top: y+'px', fontSize: SE+'px', zIndex:'3', filter:'none' });
+        ts('tA2', { left: (sx+tW+heW+a1W+nxW)+'px', top: y+'px', fontSize: SE+'px', zIndex:'3', filter:'none' });
+        ts('tHe', { left: (sx+tW)+'px',                          top: y+'px', fontSize: SE+'px', color: TC, zIndex:'3' });
+        ts('tNx', { left: (sx+tW+heW+a1W)+'px',                  top: y+'px', fontSize: SE+'px', color: TC, zIndex:'3' });
+        ts('tUt', { left: (sx+tW+heW+a1W+nxW+a2W)+'px',          top: y+'px', fontSize: SE+'px', color: GC, zIndex:'3' });
+        setTimeout(() => {
+          ['tHe','tNx','tUt'].forEach(id => ts(id, { transition: 'opacity 0.3s ease', opacity: '1' }));
+          setTimeout(flyToNav, 320);
+        }, 680);
+      }
+
+      function flyToNav() {
+        if (introPhase === 'done') return;
+        introPhase = 'done';
+        const overlay = document.getElementById('taaOverlay');
+        const scene   = document.getElementById('taaScene');
+        const brand   = document.getElementById('navBrand');
+        if (!overlay || !scene || !brand) return;
+        overlay.style.pointerEvents = 'none';
+        brand.style.opacity = '1';
+        const sr   = scene.getBoundingClientRect();
+        const navFS = parseFloat(getComputedStyle(brand).fontSize);
+        function spanPos(id) {
+          const el = document.getElementById(id);
+          const r  = el.getBoundingClientRect();
+          return { x: r.left - sr.left, y: r.top + (r.height - navFS) / 2 - sr.top };
+        }
+        const pT  = spanPos('nb-T');
+        const pHe = spanPos('nb-he');
+        const pA1 = spanPos('nb-A1');
+        const pNx = spanPos('nb-nx');
+        const pA2 = spanPos('nb-A2');
+        const pUt = spanPos('nb-ut');
+        brand.style.opacity = '0';
+        const FLY = 'left 0.5s cubic-bezier(0.4,0,0.2,1), top 0.5s cubic-bezier(0.4,0,0.2,1), font-size 0.5s cubic-bezier(0.4,0,0.2,1)';
+        ['tT','tA1','tA2','tHe','tNx','tUt'].forEach(id => ts(id, { transition: FLY }));
+        ts('tT',  { left: pT.x+'px',  top: pT.y+'px',  fontSize: navFS+'px', filter:'none' });
+        ts('tA1', { left: pA1.x+'px', top: pA1.y+'px', fontSize: navFS+'px', filter:'none' });
+        ts('tA2', { left: pA2.x+'px', top: pA2.y+'px', fontSize: navFS+'px', filter:'none' });
+        ts('tHe', { left: pHe.x+'px', top: pHe.y+'px', fontSize: navFS+'px' });
+        ts('tNx', { left: pNx.x+'px', top: pNx.y+'px', fontSize: navFS+'px' });
+        ts('tUt', { left: pUt.x+'px', top: pUt.y+'px', fontSize: navFS+'px' });
+        overlay.style.transition = 'background-color 0.5s ease';
+        overlay.style.backgroundColor = 'rgba(247,243,237,0)';
+        setTimeout(() => {
+          brand.style.transition = 'none';
+          brand.style.opacity    = '1';
+          overlay.remove();
+        }, 520);
+      }
+
+      document.getElementById('taaOverlay').addEventListener('click', flyToNav);
+
+      function runIntro() {
+        introPhase = 'running';
+        const overlay = document.getElementById('taaOverlay');
+        const scene   = document.getElementById('taaScene');
+        if (!overlay || !scene) return;
+        overlay.style.backgroundColor = '#F7F3ED';
+        overlay.style.pointerEvents   = 'all';
+        overlay.style.display = 'flex';
+        const brand = document.getElementById('navBrand');
+        brand.style.transition = 'none';
+        brand.style.opacity    = '0';
+        monogram(true);
+        setTimeout(expand, 300);
+      }
+
+      document.fonts.ready.then(runIntro);
+    })();
+    </script>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Nav scroll effect
