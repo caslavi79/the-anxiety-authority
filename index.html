@@ -2295,7 +2295,7 @@
     </footer>
 
     <!-- TAA INTRO OVERLAY -->
-    <div id="taaOverlay" style="position:fixed;inset:0;z-index:9998;background:#F7F3ED;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+    <div id="taaOverlay" style="position:fixed;inset:0;z-index:9998;background:#F7F3ED;display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;">
       <div id="taaScene" style="position:relative;width:min(640px,90vw);height:320px;overflow:visible;user-select:none;-webkit-user-select:none;">
         <span id="tT" style="position:absolute;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1;white-space:nowrap;pointer-events:none;">T</span>
         <span id="tA1" style="position:absolute;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1;white-space:nowrap;pointer-events:none;">A</span>
@@ -2311,7 +2311,7 @@
       const TC = '#1E4D45', GC = '#C49A3C';
       const FW = '600';
       const SVG_W = 680, SVG_FS = 160, CAP = 0.72;
-      const SE = 54, SH = 320;
+      const SE_MAX = 54, SH = 320;
       let introPhase = 'idle';
 
       function mw(txt, sz) {
@@ -2325,6 +2325,16 @@
         const w = sp.getBoundingClientRect().width;
         s.removeChild(d);
         return w;
+      }
+
+      // Responsive expanded font size — scales down so full string fits in 88vw
+      function getSE() {
+        const maxW = window.innerWidth * 0.88;
+        const fullStr = 'The Anxiety Authority';
+        let sz = SE_MAX;
+        const totalW = mw('T',sz)+mw('he ',sz)+mw('A',sz)+mw('nxiety ',sz)+mw('A',sz)+mw('uthority',sz);
+        if (totalW > maxW) sz = Math.floor(sz * (maxW / totalW));
+        return sz;
       }
 
       function ts(id, p) {
@@ -2357,6 +2367,7 @@
       }
 
       function expand() {
+        const SE = getSE();
         const scene = document.getElementById('taaScene');
         const sw = scene.getBoundingClientRect().width;
         const tW=mw('T',SE), heW=mw('he ',SE), a1W=mw('A',SE),
