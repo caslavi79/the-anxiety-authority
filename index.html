@@ -874,17 +874,19 @@
             background: var(--teal-deep);
             color: var(--white);
             position: relative;
-            overflow: hidden;
+            isolation: isolate;
         }
 
         .approach::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 60%;
-            height: 200%;
+            top: 0;
+            right: -10%;
+            width: 55%;
+            height: 100%;
             background: radial-gradient(ellipse at center, rgba(155, 181, 160, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .approach .section-label {
@@ -2194,7 +2196,7 @@
         .approach::after {
             content: '';
             position: absolute;
-            bottom: -120px;
+            bottom: 0;
             left: -10%;
             width: 50%;
             height: 280px;
