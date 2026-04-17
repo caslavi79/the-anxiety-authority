@@ -2860,6 +2860,43 @@
             });
         });
 
+        // Same-page anchor links: scroll smoothly and keep the URL clean
+        // (don't append #section to the address bar)
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a[href^="#"]');
+            if (!link) return;
+            const href = link.getAttribute('href');
+            if (!href || href === '#') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                history.replaceState(null, '', window.location.pathname + window.location.search);
+                return;
+            }
+            let target;
+            try { target = document.querySelector(href); } catch (_) { return; }
+            if (!target) return;
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        });
+
+        // If page loads with a hash (e.g. from an old link), scroll into view
+        // and strip the hash from the URL
+        if (window.location.hash && window.location.hash.length > 1) {
+            const initialHash = window.location.hash;
+            let initialTarget = null;
+            try { initialTarget = document.querySelector(initialHash); } catch (_) {}
+            const cleanUrl = () => history.replaceState(null, '', window.location.pathname + window.location.search);
+            if (initialTarget) {
+                setTimeout(() => {
+                    initialTarget.scrollIntoView({ behavior: 'auto', block: 'start' });
+                    cleanUrl();
+                }, 80);
+            } else {
+                cleanUrl();
+            }
+        }
+
         // Scroll-triggered fade-in
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
