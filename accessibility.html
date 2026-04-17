@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Accessibility Statement — The Anxiety Authority</title>
+    <meta name="description" content="Accessibility statement for theanxietyauthority.com — our commitment to an inclusive web experience.">
+    <meta name="robots" content="noindex, follow">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="theme-color" content="#1E4D45">
+    <link rel="canonical" href="https://theanxietyauthority.com/accessibility.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --teal:#2B6B60; --teal-deep:#1E4D45; --gold:#C49A3C; --cream:#F7F3ED; --text:#2C3633; --text-light:#5A6E69; --border:rgba(43,107,96,0.12); }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { font-family:'DM Sans',-apple-system,sans-serif; color:var(--text); background:var(--cream); line-height:1.7; -webkit-font-smoothing:antialiased; }
+        a { color:var(--teal-deep); text-decoration:underline; text-underline-offset:3px; }
+        a:hover { color:var(--gold); }
+        a:focus-visible { outline:2px solid var(--teal); outline-offset:3px; border-radius:2px; }
+        .skip-link { position:absolute; left:-9999px; top:0; background:var(--teal-deep); color:#fff; padding:12px 20px; text-decoration:none; z-index:9999; }
+        .skip-link:focus { left:16px; top:16px; color:#fff; }
+        .page-header { background:rgba(247,243,237,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--border); padding:20px 0; position:sticky; top:0; z-index:100; }
+        .page-header-inner { max-width:820px; margin:0 auto; padding:0 32px; display:flex; align-items:center; justify-content:space-between; }
+        .brand { font-family:'Cormorant Garamond',Georgia,serif; font-size:1.3rem; font-weight:600; color:var(--teal-deep); text-decoration:none; letter-spacing:-0.01em; }
+        .brand span { color:var(--gold); }
+        .back-link { font-size:0.92rem; color:var(--text-light); text-decoration:none; font-weight:500; }
+        .back-link:hover { color:var(--teal-deep); }
+        main { max-width:820px; margin:0 auto; padding:64px 32px 96px; }
+        h1 { font-family:'Cormorant Garamond',Georgia,serif; font-weight:600; font-size:clamp(2.2rem,4.5vw,3rem); color:var(--teal-deep); line-height:1.1; margin-bottom:16px; letter-spacing:-0.02em; }
+        .effective { color:var(--text-light); font-size:0.92rem; margin-bottom:48px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+        h2 { font-family:'Cormorant Garamond',Georgia,serif; font-weight:600; font-size:1.6rem; color:var(--teal-deep); margin-top:44px; margin-bottom:14px; letter-spacing:-0.01em; }
+        h3 { font-weight:600; font-size:1.05rem; color:var(--teal-deep); margin-top:28px; margin-bottom:8px; }
+        p { margin-bottom:16px; font-size:1rem; }
+        ul, ol { margin:12px 0 20px 24px; }
+        li { margin-bottom:8px; }
+        strong { color:var(--teal-deep); }
+        .callout { background:rgba(196,154,60,0.1); border-left:3px solid var(--gold); padding:18px 22px; margin:24px 0; border-radius:4px; }
+        .callout p:last-child { margin-bottom:0; }
+        footer { border-top:1px solid var(--border); padding:40px 0; margin-top:64px; background:rgba(228,236,229,0.3); }
+        .footer-inner { max-width:820px; margin:0 auto; padding:0 32px; display:flex; flex-wrap:wrap; gap:16px 24px; justify-content:space-between; align-items:center; font-size:0.88rem; color:var(--text-light); }
+        .footer-links { display:flex; flex-wrap:wrap; gap:18px; list-style:none; }
+        .footer-links a { color:var(--text-light); text-decoration:none; }
+        .footer-links a:hover { color:var(--teal-deep); }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; } }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="page-header">
+        <div class="page-header-inner">
+            <a href="/" class="brand">The <span>A</span>nxiety <span>A</span>uthority</a>
+            <a href="/" class="back-link">← Back to home</a>
+        </div>
+    </header>
+    <main id="main">
+        <h1>Accessibility Statement</h1>
+        <p class="effective">Last updated: April 16, 2026</p>
+
+        <p>The Anxiety Authority is committed to making this website accessible to everyone, including people with disabilities. We believe access to mental health information and services should not be limited by how you use the web.</p>
+
+        <h2>Conformance status</h2>
+        <p>We aim to conform with <strong>Web Content Accessibility Guidelines (WCAG) 2.1 at the AA level</strong>. WCAG defines requirements to make web content more accessible to people with a wide range of disabilities, including visual, auditory, physical, speech, cognitive, and neurological disabilities.</p>
+        <p>This site is a small, single-practitioner website and has not undergone a formal third-party audit. We rely on modern semantic HTML, built-in browser features, and ongoing manual review.</p>
+
+        <h2>What we do</h2>
+        <ul>
+            <li>Use semantic HTML landmarks so screen readers can navigate the page</li>
+            <li>Provide descriptive alt text for images</li>
+            <li>Support keyboard-only navigation</li>
+            <li>Honor <code>prefers-reduced-motion</code> for users sensitive to animation</li>
+            <li>Use color combinations that meet WCAG AA contrast ratios for body text</li>
+            <li>Use readable font sizing that scales with your browser's zoom level</li>
+            <li>Include a "skip to content" link on every page</li>
+        </ul>
+
+        <h2>Known limitations</h2>
+        <p>We acknowledge the following known gaps and are working to address them:</p>
+        <ul>
+            <li>The introductory animation on the home page is decorative. Users with <code>prefers-reduced-motion</code> enabled will see a simplified version. A future update will allow dismissal via keyboard.</li>
+            <li>The short introduction video does not yet include captions. A transcript is available on request by emailing <a href="mailto:matt@theanxietyauthority.com">matt@theanxietyauthority.com</a>.</li>
+        </ul>
+
+        <h2>Telehealth and alternative formats</h2>
+        <p>All clinical services offered by the Practice are available via telehealth throughout Texas and in-person at the office. If you need any document (intake forms, privacy notices, estimates) in an alternative format — large print, accessible PDF, plain text, or by phone — please ask.</p>
+
+        <h2>Feedback and requests</h2>
+        <p>If you encounter an accessibility barrier on this website, or if you need help accessing any information or service, please let us know. We welcome feedback and will do our best to respond within three business days.</p>
+        <p><strong>Matt Mueller, LPC</strong><br>
+        <a href="mailto:matt@theanxietyauthority.com">matt@theanxietyauthority.com</a><br>
+        (737) 352-5698</p>
+
+        <div class="callout">
+            <p>If you are in crisis, please call or text <strong><a href="tel:988">988</a></strong> (Suicide &amp; Crisis Lifeline) or go to your nearest emergency room.</p>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-inner">
+            <div>&copy; 2026 Matt Mueller, LPC. TX License #83966.</div>
+            <ul class="footer-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+                <li><a href="npp.html">Notice of Privacy Practices</a></li>
+                <li><a href="good-faith-estimate.html">Good Faith Estimate</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
