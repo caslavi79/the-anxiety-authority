@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://theanxietyauthority.com/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://theanxietyauthority.com/headshot.png</image:loc>
+      <image:title>Matt Mueller, Licensed Professional Counselor</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://theanxietyauthority.com/office-chairs.png</image:loc>
+      <image:title>The Anxiety Authority office — seating area</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://theanxietyauthority.com/office-couch.png</image:loc>
+      <image:title>The Anxiety Authority office — couch</image:title>
+    </image:image>
+  </url>
+</urlset>

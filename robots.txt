@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://theanxietyauthority.com/sitemap.xml
