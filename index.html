@@ -2108,6 +2108,101 @@
         .footer-legal-links a:hover {
             color: var(--gold-light);
         }
+        /* ===== VISUAL UPGRADES ===== */
+
+        /* Sticky two-column approach section */
+        .approach-layout {
+            display: grid;
+            grid-template-columns: minmax(320px, 1fr) minmax(0, 1.15fr);
+            gap: 72px;
+            align-items: start;
+            position: relative;
+        }
+        .approach-intro {
+            position: sticky;
+            top: calc(var(--nav-height) + 40px);
+            z-index: 1;
+        }
+        .approach-intro .section-title {
+            margin-bottom: 14px;
+        }
+        .approach-intro .section-subtitle {
+            margin: 0 0 32px 0;
+            max-width: none;
+        }
+        .approach-intro .approach-difference {
+            margin-top: 0;
+        }
+        .approach-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .approach-cards .approach-card {
+            margin: 0;
+        }
+        @media (max-width: 968px) {
+            .approach-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .approach-intro {
+                position: static;
+            }
+            .approach-intro .approach-difference {
+                margin-top: 24px;
+            }
+        }
+
+        /* Staggered card reveal */
+        .reveal-card {
+            opacity: 0;
+            transform: translateY(48px) scale(0.97);
+            transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+            transition-delay: var(--reveal-delay, 0ms);
+            will-change: opacity, transform;
+        }
+        .reveal-card.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Insurance tag hover lift */
+        .insurance-tag {
+            transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                        border-color 0.25s ease,
+                        color 0.25s ease,
+                        background 0.25s ease;
+        }
+        .insurance-tag:hover {
+            transform: translateY(-2px);
+            border-color: var(--gold);
+            color: var(--teal-deep);
+            background: rgba(196, 154, 60, 0.08);
+        }
+
+        /* Hero credentials subtle parallax target */
+        .hero-credentials {
+            transition: transform 0.12s linear;
+            will-change: transform;
+        }
+
+        /* Section inner gets subtle soft accent on scroll-in sections */
+        .approach::after {
+            content: '';
+            position: absolute;
+            bottom: -120px;
+            left: -10%;
+            width: 50%;
+            height: 280px;
+            background: radial-gradient(ellipse at center, rgba(196, 154, 60, 0.10) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -2117,6 +2212,9 @@
             }
             #taaOverlay { display: none !important; }
             #navBrand { opacity: 1 !important; }
+            .reveal-card { opacity: 1; transform: none; }
+            .approach-intro { position: static; }
+            .hero-credentials { transform: none !important; }
         }
     </style>
     <noscript>
@@ -2124,6 +2222,7 @@
             #taaOverlay { display: none !important; }
             #navBrand { opacity: 1 !important; }
             .video-overlay { display: none !important; }
+            .reveal-card { opacity: 1 !important; transform: none !important; }
         </style>
     </noscript>
 </head>
@@ -2239,7 +2338,7 @@
             <div class="section-title">Specialized, not scattered.</div>
             <p class="section-subtitle">I focus on the conditions I know best — and treat them with proven, evidence-based methods that go beyond surface-level coping.</p>
             <div class="specialties-grid">
-                <div class="specialty-card fade-in">
+                <div class="specialty-card reveal-card">
                     <div class="specialty-card-header">
                         <div class="specialty-card-header-left">
                             <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M12 18v-5.5a.5.5 0 0 0-1 0v.5a.5.5 0 0 1-1 0 3.5 3.5 0 0 1 2-3.1"/></svg></div>
@@ -2249,7 +2348,7 @@
                     </div>
                     <div class="specialty-card-body"><p>Persistent worry, &ldquo;what if&rdquo; spirals, panic attacks, physical tension, avoidance behaviors &mdash; when anxiety becomes your default operating mode, we work to rewire the response at its root.</p></div>
                 </div>
-                <div class="specialty-card fade-in">
+                <div class="specialty-card reveal-card">
                     <div class="specialty-card-header">
                         <div class="specialty-card-header-left">
                             <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></div>
@@ -2259,7 +2358,7 @@
                     </div>
                     <div class="specialty-card-body"><p>Intrusive thoughts, compulsive rituals, mental loops that won&rsquo;t quit. I use Exposure and Response Prevention (ERP) &mdash; the gold standard for OCD &mdash; to help you break the cycle for good.</p></div>
                 </div>
-                <div class="specialty-card fade-in">
+                <div class="specialty-card reveal-card">
                     <div class="specialty-card-header">
                         <div class="specialty-card-header-left">
                             <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
@@ -2269,7 +2368,7 @@
                     </div>
                     <div class="specialty-card-body"><p>Whether it&rsquo;s a single event or years of accumulated stress, trauma reshapes how you see the world. We work together to process what happened and reclaim your sense of safety.</p></div>
                 </div>
-                <div class="specialty-card fade-in">
+                <div class="specialty-card reveal-card">
                     <div class="specialty-card-header">
                         <div class="specialty-card-header-left">
                             <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></div>
@@ -2279,7 +2378,7 @@
                     </div>
                     <div class="specialty-card-body"><p>Focus issues, impulsivity, emotional dysregulation &mdash; ADHD often shows up alongside anxiety. I help you build structure and strategies that work with your brain, not against it.</p></div>
                 </div>
-                <div class="specialty-card fade-in">
+                <div class="specialty-card reveal-card">
                     <div class="specialty-card-header">
                         <div class="specialty-card-header-left">
                             <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M16 14v6"/><path d="M8 14v6"/><path d="M12 16v6"/></svg></div>
@@ -2289,7 +2388,7 @@
                     </div>
                     <div class="specialty-card-body"><p>Low motivation, persistent sadness, feeling disconnected from the things that used to matter. We identify what&rsquo;s keeping you stuck and build a path back to engagement and meaning.</p></div>
                 </div>
-                <div class="specialty-card fade-in">
+                <div class="specialty-card reveal-card">
                     <div class="specialty-card-header">
                         <div class="specialty-card-header-left">
                             <div class="specialty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
@@ -2307,43 +2406,46 @@
     <!-- APPROACH -->
     <section class="section approach" id="approach">
         <div class="section-inner">
-            <div class="section-label">My Approach</div>
-            <div class="section-title">Evidence-based. Not one-size-fits-all.</div>
-            <p class="section-subtitle">I draw from multiple proven modalities, tailored to what your specific situation needs — not a generic treatment plan.</p>
-            <div class="approach-grid">
-                <div class="approach-card fade-in">
-                    <div class="approach-card-header">
-                        <div><h3>Cognitive Behavioral Therapy</h3><span class="abbr">CBT</span></div>
-                        <svg class="approach-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            <div class="approach-layout">
+                <aside class="approach-intro">
+                    <div class="section-label">My Approach</div>
+                    <h2 class="section-title">Evidence-based. Not one-size-fits-all.</h2>
+                    <p class="section-subtitle">I draw from multiple proven modalities, tailored to what your specific situation needs — not a generic treatment plan.</p>
+                    <div class="approach-difference">
+                        <h3>What makes this different?</h3>
+                        <p>Many people come to me after trying therapy that only offered short-term coping tools — breathing exercises, journaling, "positive thinking." Those things have their place, but they don't treat the root cause. My work goes deeper. We target the core patterns driving your anxiety and retrain your brain and body's threat response. The goal isn't managing anxiety forever — it's reaching a place where anxiety no longer runs the show.</p>
                     </div>
-                    <div class="approach-card-body"><p>Identify and reshape the thinking patterns and behaviors that keep anxiety alive. Practical, structured, and backed by decades of research.</p></div>
-                </div>
-                <div class="approach-card fade-in">
-                    <div class="approach-card-header">
-                        <div><h3>Exposure &amp; Response Prevention</h3><span class="abbr">ERP</span></div>
-                        <svg class="approach-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </aside>
+                <div class="approach-cards">
+                    <div class="approach-card reveal-card">
+                        <div class="approach-card-header">
+                            <div><h3>Cognitive Behavioral Therapy</h3><span class="abbr">CBT</span></div>
+                            <svg class="approach-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                        <div class="approach-card-body"><p>Identify and reshape the thinking patterns and behaviors that keep anxiety alive. Practical, structured, and backed by decades of research.</p></div>
                     </div>
-                    <div class="approach-card-body"><p>The gold standard for OCD treatment. We systematically face what triggers you &mdash; in a safe, controlled way &mdash; so your brain learns the feared outcome doesn&rsquo;t happen.</p></div>
-                </div>
-                <div class="approach-card fade-in">
-                    <div class="approach-card-header">
-                        <div><h3>Acceptance &amp; Commitment Therapy</h3><span class="abbr">ACT</span></div>
-                        <svg class="approach-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    <div class="approach-card reveal-card">
+                        <div class="approach-card-header">
+                            <div><h3>Exposure &amp; Response Prevention</h3><span class="abbr">ERP</span></div>
+                            <svg class="approach-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                        <div class="approach-card-body"><p>The gold standard for OCD treatment. We systematically face what triggers you &mdash; in a safe, controlled way &mdash; so your brain learns the feared outcome doesn&rsquo;t happen.</p></div>
                     </div>
-                    <div class="approach-card-body"><p>Learn to accept difficult thoughts without letting them control you. Build psychological flexibility and reconnect with what actually matters to you.</p></div>
-                </div>
-                <div class="approach-card fade-in">
-                    <div class="approach-card-header">
-                        <div><h3>Mindfulness &amp; Somatic Work</h3><span class="abbr">MBCT + SOMATIC</span></div>
-                        <svg class="approach-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    <div class="approach-card reveal-card">
+                        <div class="approach-card-header">
+                            <div><h3>Acceptance &amp; Commitment Therapy</h3><span class="abbr">ACT</span></div>
+                            <svg class="approach-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                        <div class="approach-card-body"><p>Learn to accept difficult thoughts without letting them control you. Build psychological flexibility and reconnect with what actually matters to you.</p></div>
                     </div>
-                    <div class="approach-card-body"><p>Calm the nervous system, build body awareness, and develop the ability to be present without being overwhelmed. The body keeps the score &mdash; we address it.</p></div>
+                    <div class="approach-card reveal-card">
+                        <div class="approach-card-header">
+                            <div><h3>Mindfulness &amp; Somatic Work</h3><span class="abbr">MBCT + SOMATIC</span></div>
+                            <svg class="approach-card-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                        <div class="approach-card-body"><p>Calm the nervous system, build body awareness, and develop the ability to be present without being overwhelmed. The body keeps the score &mdash; we address it.</p></div>
+                    </div>
                 </div>
-            
-            </div>
-            <div class="approach-difference fade-in">
-                <h3>What makes this different?</h3>
-                <p>Many people come to me after trying therapy that only offered short-term coping tools — breathing exercises, journaling, "positive thinking." Those things have their place, but they don't treat the root cause. My work goes deeper. We target the core patterns driving your anxiety and retrain your brain and body's threat response. The goal isn't managing anxiety forever — it's reaching a place where anxiety no longer runs the show.</p>
             </div>
         </div>
     </section>
@@ -2406,7 +2508,7 @@
             <h2 class="section-title">What colleagues say.</h2>
             <p class="endorsement-disclosure">These are professional endorsements from licensed clinician colleagues — not statements from current or former clients. Endorsers have not been compensated. Client testimonials are not solicited or posted, in line with counseling ethics guidelines.</p>
             <div class="endorsements-grid fade-in">
-                <div class="endorsement-card">
+                <div class="endorsement-card reveal-card">
                     <div class="endorsement-header">
                         <img src="endorser-adam.png" alt="Adam Roark Cobb" class="endorser-photo" width="52" height="52" loading="lazy" decoding="async">
                         <div>
@@ -2416,7 +2518,7 @@
                     </div>
                     <p>"Matt has a remarkable ability to create a safe, empathic space where clients feel both supported and challenged. His kindness, warmth, and humor are balanced by clinical precision in delivering gold-standard interventions with proven efficacy."</p>
                 </div>
-                <div class="endorsement-card">
+                <div class="endorsement-card reveal-card">
                     <div class="endorsement-header">
                         <img src="endorser-jordan.png" alt="Jordan Rossi" class="endorser-photo" width="52" height="52" loading="lazy" decoding="async">
                         <div>
@@ -2426,7 +2528,7 @@
                     </div>
                     <p>"Matt is a skilled clinician who provides a supportive space which empowers clients to move towards their goals. He's collaborative, non-judgmental and dedicated to improving mental health. His experience and training is an asset to the therapy community."</p>
                 </div>
-                <div class="endorsement-card">
+                <div class="endorsement-card reveal-card">
                     <div class="endorsement-header">
                         <img src="endorser-michael.png" alt="Michael David Lee" class="endorser-photo" width="52" height="52" loading="lazy" decoding="async">
                         <div>
@@ -2771,6 +2873,72 @@
         setTimeout(() => {
             document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible'));
         }, 800);
+
+        // Staggered reveal for cards (specialty, approach, endorsement)
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.reveal-card').forEach(el => {
+            const siblings = el.parentElement ? el.parentElement.querySelectorAll(':scope > .reveal-card') : [el];
+            const index = Math.min(Array.prototype.indexOf.call(siblings, el), 5);
+            el.style.setProperty('--reveal-delay', (index * 90) + 'ms');
+            revealObserver.observe(el);
+        });
+
+        // Fallback: reveal anything still hidden after 1.8s (e.g., elements already in view)
+        setTimeout(() => {
+            document.querySelectorAll('.reveal-card:not(.revealed)').forEach(el => el.classList.add('revealed'));
+        }, 1800);
+
+        // Hero credentials subtle parallax on scroll
+        const heroCreds = document.querySelector('.hero-credentials');
+        if (heroCreds && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            let raf = null;
+            const updateParallax = () => {
+                const y = window.scrollY;
+                if (y < 800) heroCreds.style.transform = 'translateY(' + (y * 0.08) + 'px)';
+                raf = null;
+            };
+            window.addEventListener('scroll', () => {
+                if (!raf) raf = requestAnimationFrame(updateParallax);
+            }, { passive: true });
+        }
+
+        // "11+" hero counter animation on scroll into view
+        const counterEl = document.querySelector('.credential-number--numeric');
+        if (counterEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const finalText = counterEl.textContent.trim();          // e.g. "11+"
+            const target    = parseInt(finalText, 10) || 0;            // 11
+            const suffix    = finalText.replace(/^\d+/, '');           // "+"
+            counterEl.textContent = '0' + suffix;
+            const animateCount = () => {
+                const start = performance.now();
+                const duration = 1200;
+                const ease = (t) => 1 - Math.pow(1 - t, 3);
+                const tick = (now) => {
+                    const p = Math.min(1, (now - start) / duration);
+                    const val = Math.round(ease(p) * target);
+                    counterEl.textContent = val + (p >= 1 ? suffix : '');
+                    if (p < 1) requestAnimationFrame(tick);
+                };
+                requestAnimationFrame(tick);
+            };
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCount();
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            counterObserver.observe(counterEl);
+        }
 
         // Active nav link on scroll
         const sections = document.querySelectorAll('section[id]');
